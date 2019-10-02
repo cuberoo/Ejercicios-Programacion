@@ -18,6 +18,7 @@ public class Ejercicio4 {
 			System.out.println("el numero es par");
 		}
 
+		//ejercicio 7 decribir numeros pares e impares de otra forma
 		
 		str = JOptionPane.showInputDialog("escribe otro numero");
 		int numero2 = Integer.parseInt(str);
