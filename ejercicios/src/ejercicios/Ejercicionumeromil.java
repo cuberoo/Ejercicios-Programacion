@@ -16,7 +16,7 @@ public class Ejercicionumeromil {
 				numero=menor;
 			}
 			else {
-				if
+				
 			}
 		}
 	}
