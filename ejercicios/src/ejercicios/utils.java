@@ -1,5 +1,7 @@
 package ejercicios;
 
+import javax.swing.JOptionPane;
+
 public class utils {
 
 		
@@ -16,5 +18,10 @@ public static void mostrar_array (int[] array) {
 	for (int i = 0; i < array.length; i++) {
 		System.out.print(array[i] + " ");
 	}
+}
+
+public static int obtenernumusuario (String mensaje) {
+	int num =Integer.parseInt(JOptionPane.showInputDialog(mensaje));
+	return num;
 }
 }
