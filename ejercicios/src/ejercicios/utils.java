@@ -24,4 +24,9 @@ public static int obtenernumusuario (String mensaje) {
 	int num =Integer.parseInt(JOptionPane.showInputDialog(mensaje));
 	return num;
 }
+
+public static int numeroazar (int min, int max) {
+	int azar=(int) Math.round(Math.random()* (max-min)+min);
+	return azar;
+}
 }
