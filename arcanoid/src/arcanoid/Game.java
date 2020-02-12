@@ -36,12 +36,19 @@ public class Game extends Canvas {
 	private BufferStrategy strategy;
 	private static Game instance= null;
 	
+	private boolean quedanLadrillos = false;
+	private boolean siguienteFase =false;
+	
 	List<Objeto> actores=new ArrayList<Objeto>();
 	List<Ladrillos> newActorsForNextIteration = new ArrayList<Ladrillos>();
-	//List<Nave> naves = new ArrayList<Nave>();
+	
 	
 	Nave naves = new Nave(180,500);
 	Pelota bola = new Pelota();
+
+	private Object fase;
+	
+	
 	public Game () {
 		SoundsRepostories.getInstance().loopSound("arkanoid-zx-spectrum-musicas.wav");
 		// Obtengo referencia al panel principal de la ventana
@@ -104,6 +111,7 @@ public class Game extends Canvas {
 				// Limpio la lista de actores para eliminar
 				actorsForRemoval.clear();
 				
+				
 				// Adem�s de eliminar actores, tambi�n puede haber actores nuevos que se deban insertar en la siguiente iteraci�n.
 				// Se insertan y despu�s se limpia la lista de nuevos actores a insertar
 				this.actores.addAll(newActorsForNextIteration);
@@ -114,7 +122,7 @@ public class Game extends Canvas {
 					actor.act();
 				}
 				
-				Rectangle rectangulobola =new Rectangle(bola.x, bola.y, bola.ancho, bola.alto);
+				Rectangle rectangulobola =new Rectangle(bola.x + bola.ancho / 2 - 4, bola.y + bola.alto / 2 - 4, 8, 8);
 				
 				for (Objeto actor : actores) {
 					
@@ -133,6 +141,12 @@ public class Game extends Canvas {
 						}
 					}
 				}
+				if(siguienteFase==true) {
+					Fase1 fase =new Fase1();
+					this.actores.clear();
+					this.actores.addAll(fase.actores);
+				}
+				
 	}
 	
 	public void updateNave() {
@@ -140,7 +154,7 @@ public class Game extends Canvas {
 	}
 				
 	public void bloques() {
-		int cX =35;
+		int cX =40;
 		int cY=30;
 		for (int i = 0; i <Ladrillos.colores.length ; i++) {
 			for(int j=0; j< 11;j++) {
@@ -148,12 +162,19 @@ public class Game extends Canvas {
 			
 				cX+=40;
 			}
-			cX=35;
-			cY+=35;
+			cX=40;
+			cY+=30;
 		}
 		
 		actores.add(bola);
 		actores.add(naves);
+		
+		if(siguienteFase==true) {
+			Fase1 fase =new Fase1();
+			fase.inicializaFase();
+		}
+		
+		
 		
 	}
 	
@@ -166,6 +187,8 @@ public class Game extends Canvas {
 			World();
 			paintWorld();
 			updateNave();
+			comprobarSiHayLadrillos();
+			segundaFase();
 			// Calculo el tiempo que se ha tardado en la ejecuci�n
 			usedTime = System.currentTimeMillis()-startTime;
 			// Hago que el bucle pare una serie de millis, antes de generar el siguiente FPS
@@ -197,7 +220,7 @@ public class Game extends Canvas {
 
 			// Muestro en pantalla el buffer con el nuevo frame creado para el juego
 			strategy.show();
-		
+			
 		}
 		
 		private BufferedImage loadImage(String resourceName) {
@@ -217,6 +240,25 @@ public class Game extends Canvas {
 			}
 			return null; // S�lo se llegar� a esta l�nea si no se ha podido cargar el recurso correctamente
 		}
+		
+		public void comprobarSiHayLadrillos() {
+			quedanLadrillos = false;
+			for(Objeto actor :this.actores) {
+				if(actor instanceof Ladrillos)  {
+					quedanLadrillos = true;
+					break;
+				}
+			}
+			
+		}
+		public void segundaFase() {
+			if(quedanLadrillos == false && siguienteFase == false) {
+				bola.trayectoria=null;
+				Fase1 fase =new Fase1();
+				fase.inicializaFase();
+				siguienteFase = true;
+			}
+		}
 					
 		public static Game getInstance() {
 			if (instance == null) {
@@ -225,5 +267,4 @@ public class Game extends Canvas {
 			return instance;
 		}
 		
-					
 }

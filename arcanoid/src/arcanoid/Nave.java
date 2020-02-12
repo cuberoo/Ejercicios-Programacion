@@ -21,7 +21,7 @@ public class Nave extends Objeto  implements KeyListener ,  MouseMotionListener{
 	protected int vy; // igual a la anterior en el eje vertical
 	private boolean up,down,left,right; // Booleanas que determinan si el player se est� moviendo actualmente
 	protected static final int PLAYER_SPEED = 4; // velocidad del movimiento de la nave en los dos ejes
-	public int alto = 55;
+	public int alto = 35;
 	public int ancho = 50;
 	
 	public Nave(int x, int y ) {

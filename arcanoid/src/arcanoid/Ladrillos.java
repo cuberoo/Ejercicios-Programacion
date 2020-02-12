@@ -11,7 +11,8 @@ public class Ladrillos extends Objeto{
 	public static  Color colores[] = new Color[] {
 			Color.red,Color.blue,Color.green,Color.yellow,Color.white
 	};
-
+	
+	
 	public Ladrillos(int x, int y, int alto, int ancho,Color colores[] , int indice) {
 		super(x, y, alto, ancho);
 		this.color=colores[indice];

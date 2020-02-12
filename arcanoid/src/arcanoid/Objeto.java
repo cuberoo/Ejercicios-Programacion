@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public abstract class Objeto {
-	public  int x;
+	public int x;
 	public int y;
 	public int alto;
 	public int ancho;
